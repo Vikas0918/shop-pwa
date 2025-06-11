@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop Codes</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      background: #360033;
+      background: -webkit-linear-gradient(to right, #0b8793, #360033);
+      background: linear-gradient(to right, #0b8793, #360033);
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    input {
+      background: #f0f0f0;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .highlight {
+      background-color: #e0f7fa;
+      color: #006064;
+      font-weight: bold;
+      padding: 12px;
+      margin-top: 10px;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 15px;
+      }
+      input, button {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Shop Codes</h1>
+  <div class="container">
+    <input type="text" id="itemInput" placeholder="Enter item name">
+    <button onclick="findCode()">Get Code</button>
+
+    <input type="text" id="newItem" placeholder="New item name">
+    <input type="text" id="newCode" placeholder="Enter Code">
+    <button onclick="addItem()">Add New Item</button>
+
+    <div id="result" class="highlight"></div>
+  </div>
+
+  <script>
+    // Load data from localStorage
+    let items = JSON.parse(localStorage.getItem("items")) || {
+      "apple": "A",
+      "banana": "B",
+      "carrot": "C"
+    };
+
+    function findCode() {
+      const item = document.getElementById("itemInput").value.trim().toLowerCase();
+      const code = items[item];
+      const resultDiv = document.getElementById("result");
+      if (code) {
+        resultDiv.innerText = `Code for '${item}' is: ${code}`;
+      } else {
+        resultDiv.innerText = `Item '${item}' not found.`;
+      }
+    }
+
+    function addItem() {
+      const newItem = document.getElementById("newItem").value.trim().toLowerCase();
+      const newCode = document.getElementById("newCode").value.trim().toUpperCase();
+      if (newItem && newCode) {
+        items[newItem] = newCode;
+        localStorage.setItem("items", JSON.stringify(items));
+        document.getElementById("result").innerText = `Item '${newItem}' added with code '${newCode}'`;
+      }
+    }
+  </script>
+</body>
+</html>
