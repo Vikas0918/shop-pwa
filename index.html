@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Shop Application</title>
+        <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #83a4d4, #b6fbff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #2c80b4;
+    }
+
+    #output {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      color: #2d3436;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+    </head>
+    <body>
+
+        <div class="container">
+            <h2>Shop Code Application</h2>
+
+            <input type="text" id="itemName"
+                placeholder="Enter item name to get code" />
+            <button onclick="checkCode()">Get Code</button>
+
+            <input type="text" id="newItemName" placeholder="New item name" />
+            <input type="text" id="newItemCode"
+                placeholder="New item code (e.g. A1B2)" />
+            <button onclick="addItem()">Add Item</button>
+
+            <div id="output"></div>
+        </div>
+
+        <script>
+    // Item list with code instead of price
+    let items = {
+      apple: "A123",
+      banana: "B456",
+      milk: "M789"
+    };
+
+    function checkCode() {
+      let item = document.getElementById("itemName").value.trim().toLowerCase();
+      let output = document.getElementById("output");
+
+      if (items[item]) {
+        output.innerHTML = `Code for <b>${item}</b> is <span style="color: green">${items[item]}</span>`;
+      } else {
+        output.innerHTML = `Item <b>${item}</b> not found.`;
+      }
+    }
+
+    function addItem() {
+      let name = document.getElementById("newItemName").value.trim().toLowerCase();
+      let code = document.getElementById("newItemCode").value.trim();
+      let output = document.getElementById("output");
+
+      if (name && code.match(/^[a-zA-Z0-9]+$/)) {
+        items[name] = code;
+        output.innerHTML = `Added <b>${name}</b> with code <span style="color: blue">${code}</span>`;
+      } else {
+        output.innerHTML = `Please enter a valid item name and alphanumeric code.`;
+      }
+    }
+  </script>
+
+    </body>
+</html>
